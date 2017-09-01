@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
+Developeurs : VBNIN + CKAR - IPEchanges.
 Ce fichier est une librairie requise par le script PAR22_state_SNMP.py
 """
 
@@ -14,7 +15,7 @@ import re
 
 # Définition de la fonction de logging
 def log(level, msg):
-    logging.basicConfig(level=logging.INFO, format='%(asctime)s %(message)s')
+    logging.basicConfig(level=logging.INFO, format='%(asctime)s : %(message)s')
     logger = logging.getLogger(__name__)
     if level == "debug":
         logger.debug(msg)
@@ -34,9 +35,13 @@ def SNMPget(IPAddr, OID):
 
     if errorIndication:
         log("error", errorIndication)
+        state = '2'
+        return state
     elif errorStatus:
         log("error", '%s at %s' % (errorStatus.prettyPrint(),
                             errorIndex and varBinds[int(errorIndex) - 1][0] or '?'))
+        state = '2'
+        return state
     else:
         for varBind in varBinds:
             state = (' = '.join([x.prettyPrint() for x in varBind]))
@@ -45,7 +50,7 @@ def SNMPget(IPAddr, OID):
         
 # Définition de la fonction de vérification d'état du HPA            
 def Tx_state(IPAddr, OidTxState, GpioPin):
-    state = SNMPget(IPAddr, OidTxState) 
+    state = SNMPget(IPAddr, OidTxState)
     if state[-1:] == '1':
         if GPIO.input(GpioPin) == 0:
             GPIO.output(GpioPin, 1)
@@ -53,13 +58,13 @@ def Tx_state(IPAddr, OidTxState, GpioPin):
         else:
             pass
     elif state[-1:] == '2':
-        for i in range(4):
+        for i in range(3):
             GPIO.output(GpioPin, 1)
             time.sleep(0.3)
             GPIO.output(GpioPin, 0)
             time.sleep(0.3)
             i +=1
-        log("error", "IBUC PAR22 {0} muted due to alarm !!!".format(IPAddr))
+        log("error", "IBUC PAR22 {0} en alarme ou injoignable !!!".format(IPAddr))
     else:
         if GPIO.input(GpioPin) == 1:
             GPIO.output(GpioPin, 0)
@@ -67,18 +72,18 @@ def Tx_state(IPAddr, OidTxState, GpioPin):
         else:
             pass
 
-def HpaInfo(IPAddr, OidModel, OidSN, OidFW, OidTSH, OidTTH):
+def HpaInfo(Nb, IPAddr, OidModel, OidSN, OidFW, OidTSH, OidTTH):
     Infos = {'Model':SNMPget(IPAddr, OidModel),
-             'SN':SNMPget(IPAddr, OidSN),
-             'FW':SNMPget(IPAddr, OidFW),
-             'TSH':SNMPget(IPAddr, OidTSH),
-             'TTH':SNMPget(IPAddr, OidTTH)
+             'Serial Number':SNMPget(IPAddr, OidSN),
+             'Firmware':SNMPget(IPAddr, OidFW),
+             'Total System Hours':SNMPget(IPAddr, OidTSH),
+             'Total Transmit Hours':SNMPget(IPAddr, OidTTH)
              }
-    print ("Spécification du HPA :")
-    print("Adresse IP : " + IPAddr)
-    for key, value in Infos:
+    log("info", "*** Spécifications du HPA #" + Nb + " ***")
+    log("info", "Adresse IP : " + IPAddr)
+    for key in Infos:
         m = re.search('(.*)\ =\ (.*)', Infos[key])
         if m is not None:
-            print(m.group(2))
-    
+            log("info", key + " : " + m.group(2))
+    log("info", "***")
     

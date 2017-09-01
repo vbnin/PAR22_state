@@ -2,18 +2,18 @@
 # -*- coding: utf-8 -*-
 
 """
-v1.4 - Python3 - 31/08/17 - VBNIN + CKAR - IPEchanges.
+Developeurs : VBNIN + CKAR - IPEchanges.
 
 Ce script est destiné à relever l'état de transmission des amplificateurs
-bi-feed de la PAR22 via leur protocole SNMP
+bi-feed de la PAR22 via leur protocole SNMP. 
+Ne fonctionne que sur Raspberry Pi.
 """
 
 # Import des librairies
-from argparse import ArgumentParser
-import RPi.GPIO as GPIO
 import time
-import logging
 import ConfigParser
+import RPi.GPIO as GPIO
+from argparse import ArgumentParser
 from Libraries import SNMPget, log, Tx_state, HpaInfo
 
 # Récupération des variables de démarrage
@@ -45,12 +45,11 @@ GPIO.setup(GpioPin2, GPIO.OUT)
 GPIO.output(GpioPin2, 0)
 
 # Démarrage de la boucle de vérification d'état de transmission
-time.sleep(0)
-log("info", "Récupération des infos du 1er HPA :")
-HpaInfo(Hpa1Addr, OidModel, OidSerial, OidFirmware, OidTotalSystemHours, OidTotalTransmitHours)
-log("info", "Récupération des infos du 1er HPA :")
-HpaInfo(Hpa2Addr, OidModel, OidSerial, OidFirmware, OidTotalSystemHours, OidTotalTransmitHours)
-log("info", "Lancement de la verification de l'etat des IBUC de la PAR22.")
+log("info", "Initialisation du script...")
+time.sleep(2)
+HpaInfo('1', Hpa1Addr, OidModel, OidSerial, OidFirmware, OidTotalSystemHours, OidTotalTransmitHours)
+HpaInfo('2', Hpa2Addr, OidModel, OidSerial, OidFirmware, OidTotalSystemHours, OidTotalTransmitHours)
+log("info", "Lancement de la vérification de l'état des IBUC de la PAR22...")
 try:
     while True:
         Tx_state(Hpa1Addr, OidTxState, GpioPin1)
@@ -58,4 +57,4 @@ try:
         Tx_state(Hpa2Addr, OidTxState, GpioPin2) 
         time.sleep(1)
 finally:
-	GPIO.cleanup()
+    GPIO.cleanup()
