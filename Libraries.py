@@ -68,13 +68,17 @@ def Tx_state(IPAddr, OidTxState, GpioPin):
             pass
 
 def HpaInfo(IPAddr, OidModel, OidSN, OidFW, OidTSH, OidTTH):
-    Infos = {'IPAddr':IPAddr,
-             'Model':SNMPget(IPAddr, OidModel),
+    Infos = {'Model':SNMPget(IPAddr, OidModel),
              'SN':SNMPget(IPAddr, OidSN),
              'FW':SNMPget(IPAddr, OidFW),
              'TSH':SNMPget(IPAddr, OidTSH),
              'TTH':SNMPget(IPAddr, OidTTH)
              }
-    m = re.search('(.*)\ =\ (.*)', Infos['Model'])
-    print(m.group(2))
+    print ("Spécification du HPA :")
+    print("Adresse IP : " + IPAddr)
+    for key, value in Infos:
+        m = re.search('(.*)\ =\ (.*)', Infos[key])
+        if m is not None:
+            print(m.group(2))
+    
     
