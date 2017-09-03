@@ -1,4 +1,4 @@
 #!/bin/bash
 
 cd /home/pi/PAR22_state/
-sudo python PAR22_state_SNMP.py -c "config.ini"
+sudo python core.py -c "config.ini"
