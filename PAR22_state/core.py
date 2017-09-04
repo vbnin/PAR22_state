@@ -19,9 +19,10 @@ from argparse import ArgumentParser
 from Libraries import SNMPget, log, Tx_state, HpaInfo
 
 # Activation du logger principal
+handler = RotatingFileHandler('/var/log/PAR22_state.log', maxBytes=10000000, backupCount=5)
+handler.setFormatter(logging.Formatter('%(asctime)s : %(message)s'))
 logging.basicConfig(level=logging.INFO, format='%(asctime)s : %(message)s')
 logger = logging.getLogger(__name__)
-handler = RotatingFileHandler('/var/log/PAR22_state.log', maxBytes=100, backupCount=5)
 logger.addHandler(handler)
 
 # Récupération des variables de démarrage
