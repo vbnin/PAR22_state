@@ -13,16 +13,8 @@ import time
 import logging
 import re
 
-# Définition de la fonction de logging
-def log(level, msg):
-    logging.basicConfig(level=logging.INFO, format='%(asctime)s : %(message)s')
-    logger = logging.getLogger(__name__)
-    if level == "debug":
-        logger.debug(msg)
-    elif level == "info":
-        logger.info(msg)
-    else:
-        logger.error(msg)
+# Activation du logger
+logger = logging.getLogger(__name__)
 
 # Définition de la commande SNMP Get
 def SNMPget(IPAddr, OID):
