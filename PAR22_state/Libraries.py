@@ -69,12 +69,13 @@ def Tx_state(IPAddr, OidTxState, GpioPin):
         else:
             pass
 
-def HpaInfo(Nb, IPAddr, OidModel, OidSN, OidFW, OidTSH, OidTTH):
+def HpaInfo(Nb, IPAddr, OidModel, OidSN, OidFW, OidTSH, OidTTH, OidTx):
     Infos = {'Model':SNMPget(IPAddr, OidModel),
              'Serial Number':SNMPget(IPAddr, OidSN),
              'Firmware':SNMPget(IPAddr, OidFW),
              'Total System Hours':SNMPget(IPAddr, OidTSH),
              'Total Transmit Hours':SNMPget(IPAddr, OidTTH)
+             'Etat actuel de la transmission':SNMPget(IPAddr, OidTx)
              }
     logger.info("*** Spécifications du HPA #" + Nb + " ***")
     logger.info("Adresse IP : " + IPAddr)
@@ -84,3 +85,7 @@ def HpaInfo(Nb, IPAddr, OidModel, OidSN, OidFW, OidTSH, OidTTH):
             logger.info(key + " : " + m.group(2))
     logger.info("***")
     
+def PrintException(msg):
+    print("***********************************************************************")
+    print(msg)
+    print("***********************************************************************")
