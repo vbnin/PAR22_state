@@ -50,7 +50,7 @@ try:
     GpioPin2 = int(config.get('GPIO','GpioPin2'))
 
 except:
-    PrintException("Fichier de configuration invalide ou non précisé.\n\033[1;31mPour rappel :\033[0;37m sudo ./core.py -c 'emplacement du fichier de configuration'")
+    PrintException("Fichier de configuration invalide ou non précisé.\n\033[1;31mPour rappel :\033[1;33m sudo ./core.py -c 'emplacement du fichier de configuration'\033[0m")
     exit()
 
 # Démarrage de la boucle de vérification d'état de transmission
