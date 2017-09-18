@@ -7,6 +7,6 @@ cd /usr/local/bin/PAR22_state/PAR22_state/
 sudo chmod +x core.py
 sudo chmod +x Libraries.py
 echo "*** Ajout des droits d'exécution ***"
-echo -e "$(sudo crontab -u root -l)\n@reboot python /usr/local/bin/PAR22_state/PAR22_state/core.py -c 'config.ini'" | sudo crontab -u root -
+echo -e "$(crontab -u pi -l)\n@reboot sudo /usr/bin/python3 /usr/local/bin/PAR22_state/PAR22_state/core.py -c '/usr/local/bin/PAR22_state/PAR22_state/config.ini'" | crontab -u pi -l
 echo "*** Activation du script au reboot via sudo crontab ***"
 echo "*** Installation terminée ***"
