@@ -16,7 +16,7 @@ import ConfigParser
 import RPi.GPIO as GPIO
 from logging.handlers import RotatingFileHandler
 from argparse import ArgumentParser
-from Libraries import SNMPget, log, Tx_state, HpaInfo
+from Libraries import SNMPget, Tx_state, HpaInfo
 
 # Activation du logger principal
 handler = RotatingFileHandler('/var/log/PAR22_state.log', maxBytes=10000000, backupCount=5)
@@ -48,7 +48,7 @@ GpioPin2 = int(config.get('GPIO','GpioPin2'))
 
 
 # Démarrage de la boucle de vérification d'état de transmission
-log("info", "Initialisation du script...")
+logger.info("Initialisation du script...")
 time.sleep(2)
 
 # Initialisation de l'état des leds
@@ -62,7 +62,7 @@ GPIO.output(GpioPin2, 0)
 # Récupération infos des HPA
 HpaInfo('1', Hpa1Addr, OidModel, OidSerial, OidFirmware, OidTotalSystemHours, OidTotalTransmitHours)
 HpaInfo('2', Hpa2Addr, OidModel, OidSerial, OidFirmware, OidTotalSystemHours, OidTotalTransmitHours)
-log("info", "Lancement de la vérification de l'état des IBUC de la PAR22...")
+logger.info("Lancement de la vérification de l'état des IBUC de la PAR22...")
 
 # Lancement de la boucle de test
 try:
