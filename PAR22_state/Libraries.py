@@ -14,7 +14,11 @@ import logging
 import re
 
 # Activation du logger
+handler = RotatingFileHandler('/var/log/PAR22_state.log', maxBytes=10000000, backupCount=5)
+handler.setFormatter(logging.Formatter('%(asctime)s : %(message)s'))
+logging.basicConfig(level=logging.INFO, format='%(asctime)s : %(message)s')
 logger = logging.getLogger(__name__)
+logger.addHandler(handler)
 
 # Définition de la commande SNMP Get
 def SNMPget(IPAddr, OID):
