@@ -74,7 +74,7 @@ def HpaInfo(Nb, IPAddr, OidModel, OidSN, OidFW, OidTSH, OidTTH, OidTx):
              'Serial Number':SNMPget(IPAddr, OidSN),
              'Firmware':SNMPget(IPAddr, OidFW),
              'Total System Hours':SNMPget(IPAddr, OidTSH),
-             'Total Transmit Hours':SNMPget(IPAddr, OidTTH)
+             'Total Transmit Hours':SNMPget(IPAddr, OidTTH),
              'Etat actuel de la transmission':SNMPget(IPAddr, OidTx)
              }
     logger.info("*** Spécifications du HPA #" + Nb + " ***")
