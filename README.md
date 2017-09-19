@@ -1,4 +1,5 @@
 # PAR22_state v1.1
+
 Script de retour d'état des HPA PAR22
 
 Ce script Python a été conçu pour obtenir via SNMP des informations sur les amplificateurs IBUC Terrasat.
