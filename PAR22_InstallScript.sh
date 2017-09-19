@@ -13,7 +13,6 @@ echo "*** Activation du script au reboot via sudo crontab ***"
 echo -e "$(crontab -u pi -l)\n@reboot sudo /usr/bin/python3 /usr/local/bin/PAR22_state/PAR22_state/core.py -c '/usr/local/bin/PAR22_state/PAR22_state/config.ini'" | crontab -u pi -
 
 echo "*** Installation des packages Python3 pré-requis ***"
-sudo pip3 install logging
 sudo pip3 install configparser
 sudo pip3 install argparse
 sudo pip3 install pysnmp
