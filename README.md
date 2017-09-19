@@ -6,6 +6,7 @@ Ce script Python a été conçu pour obtenir via SNMP des informations sur les a
 Attention, ce script utilise la library Rpi.GPIO de Raspberry. Il n'est pas exécutable autrement que sur Raspberry Pi.
 
 *** Instructions d'installation : ***
+
 0 - Prérequis : Le Raspberry doit être connecté à internet pour télécharger les paquets Python3 requis
 
 1 - Déposer le dossier complet dans '/home/pi/'
