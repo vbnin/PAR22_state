@@ -17,6 +17,6 @@ sudo pip3 install configparser
 sudo pip3 install argparse
 sudo pip3 install pysnmp
 
-echo "*** Installation terminée, reboot dans 15 secondes. Pour annuler, pressez 'Ctrl + C' ***"
-sleep 15
+echo "*** Installation terminée, reboot dans 60 secondes. Pour annuler, pressez 'Ctrl + C' ***"
+sleep 60
 sudo reboot
