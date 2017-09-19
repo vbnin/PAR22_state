@@ -12,7 +12,7 @@ Ne fonctionne que sur Raspberry Pi.
 # Import des librairies
 import time
 import logging
-import ConfigParser
+import configparser
 import RPi.GPIO as GPIO
 from logging.handlers import RotatingFileHandler
 from argparse import ArgumentParser
@@ -36,7 +36,7 @@ args = parser.parse_args()
 
 # Lecture du fichier de Configuration et attribution des variables
 try:
-    config = ConfigParser.ConfigParser()
+    config = configparser.ConfigParser()
     config.read(args.config)
     Hpa1Addr = config.get('ADDRESS','Hpa1Addr')
     Hpa2Addr = config.get('ADDRESS','Hpa2Addr')
